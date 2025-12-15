@@ -1,170 +1,105 @@
-(function ($) {
-	"use strict";
-	
-	/*----------------------------
-    Responsive menu Active
-    ------------------------------ */
-	$(".mainmenu ul#primary-menu").slicknav({
-		allowParentLinks: true,
-		prependTo: '.responsive-menu',
-	});
-	
-	/*----------------------------
-    START - Scroll to Top
-    ------------------------------ */
-	$(window).on('scroll', function() {
-		if ($(this).scrollTop() > 600) {
-			$('.scrollToTop').fadeIn();
-		} else {
-			$('.scrollToTop').fadeOut();
-		}
-	});
-	$('.scrollToTop').on('click', function () {
-		$('html, body').animate({scrollTop : 0},2000);
-		return false;
-	});
-	$('.menu-area ul > li > .theme-btn').on('click', function () {
-		$('.buy-ticket').show();
-		return false;
-	});
-	$('.buy-ticket .buy-ticket-area > a').on('click', function () {
-		$('.buy-ticket').hide();
-		return false;
-	});
-	$('.login-popup').on('click', function () {
-		$('.login-area').show();
-		return false;
-	});
-	$('.login-box > a').on('click', function () {
-		$('.login-area').hide();
-		return false;
-	});
-	
-	/*----------------------------
-    START - Slider activation
-    ------------------------------ */
-	var heroSlider = $('.hero-area-slider');
-	heroSlider.owlCarousel({
-		loop:true,
-		dots: true,
-		autoplay: false,
-		autoplayTimeout:4000,
-		nav: false,
-		items: 1,
-		responsive:{
-			992:{
-				dots: false,
-			}
-		}
-	});
-	heroSlider.on('changed.owl.carousel', function(property) {
-		var current = property.item.index;
-		var prevRating = $(property.target).find(".owl-item").eq(current).prev().find('.hero-area-slide').html();
-		var nextRating = $(property.target).find(".owl-item").eq(current).next().find('.hero-area-slide').html();
-		$('.thumb-prev .hero-area-slide').html(prevRating);
-		$('.thumb-next .hero-area-slide').html(nextRating);
-	});
-	$('.thumb-next').on('click', function() {
-		heroSlider.trigger('next.owl.carousel', [300]);
-		return false;
-	});
-	$('.thumb-prev').on('click', function() {
-		heroSlider.trigger('prev.owl.carousel', [300]);
-		return false;
-	});
-	var newsSlider = $('.news-slider');
-	newsSlider.owlCarousel({
-		loop:true,
-		dots: true,
-		autoplay: false,
-		autoplayTimeout:4000,
-		nav: false,
-		items: 1,
-		responsive:{
-			992:{
-				dots: false,
-			}
-		}
-	});
-	newsSlider.on('changed.owl.carousel', function(property) {
-		var current = property.item.index;
-		var prevRating = $(property.target).find(".owl-item").eq(current).prev().find('.single-news').html();
-		var nextRating = $(property.target).find(".owl-item").eq(current).next().find('.single-news').html();
-		$('.news-prev .single-news').html(prevRating);
-		$('.news-next .single-news').html(nextRating);
-	});
-	$('.news-next').on('click', function() {
-		newsSlider.trigger('next.owl.carousel', [300]);
-		return false;
-	});
-	$('.news-prev').on('click', function() {
-		newsSlider.trigger('prev.owl.carousel', [300]);
-		return false;
-	});
-	var videoSlider = $('.video-slider');
-	videoSlider.owlCarousel({
-		loop:true,
-		dots: true,
-		autoplay: false,
-		autoplayTimeout:4000,
-		nav: false,
-		responsive:{
-			0:{
-				items: 1,
-				margin: 0
-			},
-			576:{
-				items: 2,
-				margin: 30
-			},
-			768:{
-				items: 3,
-				margin: 30
-			},
-			992:{
-				items: 4,
-				margin: 30
-			}
-		}
-	});
-	
-	/*----------------------------
-	START - videos popup
-	------------------------------ */
-	$('.popup-youtube').magnificPopup({type:'iframe'});
-	//iframe scripts
-	$.extend(true, $.magnificPopup.defaults, {  
-		iframe: {
-			patterns: {
-				//youtube videos
-				youtube: {
-					index: 'youtube.com/', 
-					id: 'v=', 
-					src: 'https://www.youtube.com/embed/%id%?autoplay=1' 
-				}
-			}
-		}
-	});
-	
-	/*----------------------------
-    START - Isotope
-    ------------------------------ */
-    jQuery(".portfolio-item").isotope();
-    $(".portfolio-menu li").on("click", function(){
-      $(".portfolio-menu li").removeClass("active");
-      $(this).addClass("active");
-      var selector = $(this).attr('data-filter');
-      $(".portfolio-item").isotope({
-        filter: selector
-      })
-    });
-	
-	/*----------------------------
-    START - Preloader
-    ------------------------------ */
-	jQuery(window).load(function(){
-		jQuery("#preloader").fadeOut(500);
-	});
-	
+// --- SIMULATED DATABASE (Matches your Admin Panel Structure) ---
+const moviesDB = [
+    {
+        id: 0, // ID 0 is usually the Hero Banner movie
+        title: "Dune: Part Two",
+        genre: "Sci-Fi",
+        year: 2024,
+        rating: 8.9,
+        description: "Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.",
+        poster: "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+        backdrop: "https://image.tmdb.org/t/p/original/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg"
+    },
+    {
+        id: 1,
+        title: "Deadpool & Wolverine",
+        genre: "Action",
+        year: 2024,
+        rating: 8.0,
+        description: "Wade Wilson suits up again with an even more reluctant Wolverine to save his universe.",
+        poster: "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+        backdrop: "https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg"
+    },
+    {
+        id: 2,
+        title: "Inside Out 2",
+        genre: "Animation",
+        year: 2024,
+        rating: 8.5,
+        description: "Riley's mind headquarters is undergoing a sudden demolition to make room for new Emotions.",
+        poster: "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+        backdrop: "" 
+    },
+    {
+        id: 3,
+        title: "Godzilla x Kong",
+        genre: "Action",
+        year: 2024,
+        rating: 7.2,
+        description: "Two ancient titans clash in an epic battle as humans unravel their intertwined origins.",
+        poster: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
+        backdrop: ""
+    },
+    {
+        id: 4,
+        title: "Civil War",
+        genre: "Thriller",
+        year: 2024,
+        rating: 7.4,
+        description: "A journey across a dystopian future America, following a team of military-embedded journalists.",
+        poster: "https://image.tmdb.org/t/p/w500/sh7Rg8Er3tFcN9BpKIPOMvALgZd.jpg",
+        backdrop: ""
+    }
+];
 
-}(jQuery));
+// --- DOM ELEMENTS ---
+const grid = document.getElementById('movie-grid');
+const homeView = document.getElementById('home-view');
+const detailsView = document.getElementById('details-view');
+
+// --- 1. INITIALIZE APP ---
+window.onload = function() {
+    loadHeroSection();
+    loadMovieGrid();
+};
+
+// --- 2. RENDER HERO SECTION ---
+function loadHeroSection() {
+    // We use the first movie in the DB as the Hero Banner
+    const heroMovie = moviesDB[0];
+    document.getElementById('hero-title').innerText = heroMovie.title;
+    document.getElementById('hero-desc').innerText = heroMovie.description;
+    document.getElementById('hero-section').style.backgroundImage = `linear-gradient(to top, #141414, transparent), url('${heroMovie.backdrop}')`;
+}
+
+
+// --- 4. NAVIGATION LOGIC ---
+function showDetails(index) {
+    const movie = moviesDB[index];
+
+    // Populate Details
+    document.getElementById('detail-title').innerText = movie.title;
+    document.getElementById('detail-desc').innerText = movie.description;
+    document.getElementById('detail-year').innerText = movie.year;
+    document.getElementById('detail-rating').innerText = movie.rating;
+    document.getElementById('detail-genre').innerText = movie.genre;
+    document.getElementById('detail-poster').src = movie.poster;
+
+    // Switch Views
+    homeView.classList.remove('active');
+    setTimeout(() => {
+        homeView.style.display = 'none';
+        detailsView.style.display = 'block';
+        setTimeout(() => detailsView.classList.add('active'), 50);
+        window.scrollTo(0, 0);
+    }, 500);
+}
+
+function goHome() {
+    detailsView.classList.remove('active');
+    setTimeout(() => {
+        detailsView.style.display = 'none';
+        homeView.style.display = 'block';
+        setTimeout(() => homeView.classList.add('active'), 50);
+    }, 500);
+}

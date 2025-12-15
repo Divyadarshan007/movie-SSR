@@ -1,6 +1,7 @@
 import express from 'express'
 import adminRouter from './routes/adminRoutes.js';
 import connectDb from './config/db.js';
+import clientRouter from './routes/clientRoutes.js';
 
 const app = express();
 const PORT = 3000;
@@ -12,4 +13,5 @@ app.use('/uploads', express.static('uploads'))
 app.use(express.urlencoded({ extended: true }))
 app.use('/admin', adminRouter)
 app.use('/', clientRouter)
+
 app.listen(PORT, ()=>{})
