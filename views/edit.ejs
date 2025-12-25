@@ -22,18 +22,18 @@
                   <p class="card-description mb-0">Update movie information below</p>
                 </div>
               </div>
-              <form class="forms-sample" method="post" action="/admin/edit-movie/<%= thatOneMovie.id %>" enctype="multipart/form-data">
+              <form class="forms-sample" method="post" action="/admin/edit-movie/<%= thatOneMovie.id %>" enctype="multipart/form-data" id="editMovieForm" onsubmit="return validateForm()">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="name"><i class="mdi mdi-movie mr-1"></i> Movie Name</label>
-                      <input type="text" class="form-control text-light" name="name" id="name" placeholder="Enter movie name" value="<%= thatOneMovie.name %>" required>
+                      <input type="text" class="form-control text-light" name="name" id="name" placeholder="Enter movie name" value="<%= thatOneMovie.name %>">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="genre"><i class="mdi mdi-tag mr-1"></i> Genre</label>
-                      <select name="genre" id="genre" class="form-control text-light" required>
+                      <select name="genre" id="genre" class="form-control text-light">
                         <option value="">Select Genre</option>
                         <option <%= thatOneMovie.genre == 'Action' ? 'selected' : '' %> value="Action">Action</option>
                         <option <%= thatOneMovie.genre == 'Adventure' ? 'selected' : '' %> value="Adventure">Adventure</option>
@@ -63,13 +63,13 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="date"><i class="mdi mdi-calendar mr-1"></i> Release Date</label>
-                      <input type="date" class="form-control text-light" id="date" name="date" value="<%= thatOneMovie.date %>" required>
+                      <input type="date" class="form-control text-light" id="date" name="date" value="<%= thatOneMovie.date %>">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="ratings"><i class="mdi mdi-star mr-1"></i> Rating</label>
-                      <select name="ratings" class="form-control text-light" id="ratings" required>
+                      <select name="ratings" class="form-control text-light" id="ratings">
                         <option value="">Select Rating</option>
                         <option <%= thatOneMovie.ratings == '1' ? 'selected' : '' %> value="1">⭐ 1 Star</option>
                         <option <%= thatOneMovie.ratings == '2' ? 'selected' : '' %> value="2">⭐⭐ 2 Stars</option>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group">
                   <label for="description"><i class="mdi mdi-text mr-1"></i> Description</label>
-                  <textarea class="form-control text-light" name="description" id="description" rows="5" placeholder="Enter movie description..." required><%= thatOneMovie.description %></textarea>
+                  <textarea class="form-control text-light" name="description" id="description" rows="5" placeholder="Enter movie description..."><%= thatOneMovie.description %></textarea>
                 </div>
                 <div class="mt-4">
                   <button type="submit" class="btn btn-warning btn-lg mr-2">
@@ -106,3 +106,77 @@
   </div>
 
   <%- include('./partials/end.ejs')%>
+
+  <script>
+    function validateForm() {
+      var name = document.getElementById('name').value.trim();
+      var genre = document.getElementById('genre').value;
+      var date = document.getElementById('date').value;
+      var ratings = document.getElementById('ratings').value;
+      var avatar = document.getElementById('avatar');
+      var description = document.getElementById('description').value.trim();
+      var errors = [];
+
+      // Movie Name validation
+      if (!name) {
+        errors.push('Movie Name is required');
+      } else if (name.length < 2) {
+        errors.push('Movie Name must be at least 2 characters');
+      } else if (name.length > 100) {
+        errors.push('Movie Name must be less than 100 characters');
+      }
+
+      // Genre validation
+      if (!genre) {
+        errors.push('Please select a Genre');
+      }
+
+      // Release Date validation
+      if (!date) {
+        errors.push('Release Date is required');
+      } else {
+        var selectedDate = new Date(date);
+        var today = new Date();
+        var minDate = new Date('1888-01-01');
+        if (selectedDate < minDate) {
+          errors.push('Release Date cannot be before 1888');
+        } else if (selectedDate > new Date(today.getFullYear() + 5, 11, 31)) {
+          errors.push('Release Date cannot be more than 5 years in the future');
+        }
+      }
+
+      // Rating validation
+      if (!ratings) {
+        errors.push('Please select a Rating');
+      }
+
+      // Image validation (optional for edit)
+      if (avatar.files && avatar.files.length > 0) {
+        var file = avatar.files[0];
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        var maxSize = 5 * 1024 * 1024; // 5MB
+
+        if (!allowedTypes.includes(file.type)) {
+          errors.push('Movie Poster must be an image (JPEG, PNG, GIF, or WebP)');
+        }
+        if (file.size > maxSize) {
+          errors.push('Movie Poster must be less than 5MB');
+        }
+      }
+
+      // Description validation
+      if (!description) {
+        errors.push('Description is required');
+      } else if (description.length < 10) {
+        errors.push('Description must be at least 10 characters');
+      } else if (description.length > 2000) {
+        errors.push('Description must be less than 2000 characters');
+      }
+
+      if (errors.length > 0) {
+        alert('Please fix the following errors:\n\n• ' + errors.join('\n• '));
+        return false;
+      }
+      return true;
+    }
+  </script>

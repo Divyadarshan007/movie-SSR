@@ -1,7 +1,6 @@
-// --- SIMULATED DATABASE (Matches your Admin Panel Structure) ---
 const moviesDB = [
     {
-        id: 0, // ID 0 is usually the Hero Banner movie
+        id: 0,
         title: "Dune: Part Two",
         genre: "Sci-Fi",
         year: 2024,
@@ -28,7 +27,7 @@ const moviesDB = [
         rating: 8.5,
         description: "Riley's mind headquarters is undergoing a sudden demolition to make room for new Emotions.",
         poster: "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
-        backdrop: "" 
+        backdrop: ""
     },
     {
         id: 3,
@@ -52,32 +51,25 @@ const moviesDB = [
     }
 ];
 
-// --- DOM ELEMENTS ---
 const grid = document.getElementById('movie-grid');
 const homeView = document.getElementById('home-view');
 const detailsView = document.getElementById('details-view');
 
-// --- 1. INITIALIZE APP ---
 window.onload = function() {
     loadHeroSection();
     loadMovieGrid();
 };
 
-// --- 2. RENDER HERO SECTION ---
 function loadHeroSection() {
-    // We use the first movie in the DB as the Hero Banner
     const heroMovie = moviesDB[0];
     document.getElementById('hero-title').innerText = heroMovie.title;
     document.getElementById('hero-desc').innerText = heroMovie.description;
     document.getElementById('hero-section').style.backgroundImage = `linear-gradient(to top, #141414, transparent), url('${heroMovie.backdrop}')`;
 }
 
-
-// --- 4. NAVIGATION LOGIC ---
 function showDetails(index) {
     const movie = moviesDB[index];
 
-    // Populate Details
     document.getElementById('detail-title').innerText = movie.title;
     document.getElementById('detail-desc').innerText = movie.description;
     document.getElementById('detail-year').innerText = movie.year;
@@ -85,7 +77,6 @@ function showDetails(index) {
     document.getElementById('detail-genre').innerText = movie.genre;
     document.getElementById('detail-poster').src = movie.poster;
 
-    // Switch Views
     homeView.classList.remove('active');
     setTimeout(() => {
         homeView.style.display = 'none';

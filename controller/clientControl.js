@@ -9,8 +9,6 @@ const getClientPage = async (req, res) => {
 const getDescDetail = async (req, res) => {
     const { movieId } = req.params
     const thatOneMovie = await Movie.findById(movieId)
-    console.log(thatOneMovie);
-
     return res.render('desc', { thatOneMovie })
 }
 export { getClientPage, getDescDetail }

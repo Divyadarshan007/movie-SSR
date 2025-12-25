@@ -27,12 +27,8 @@ const deleteMovie = async (req, res) => {
     const { deleteId } = req.params
     const thatOneMovie = await Movie.findById(deleteId)
     const imagePath = path.join(__dirname, "..", thatOneMovie.avatar)
-    console.log(imagePath);
 
-
-    fs.unlink(imagePath, (err) => {
-        console.log(err);
-    })
+    fs.unlink(imagePath, (err) => {})
 
     await Movie.findByIdAndDelete(deleteId)
     return res.redirect('/admin')
