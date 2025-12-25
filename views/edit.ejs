@@ -3,78 +3,100 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
-        <h3 class="page-title"> Edit Movie </h3>
+        <h3 class="page-title"> <i class="mdi mdi-movie-edit text-warning mr-2"></i> Edit Movie </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page">Edit Movie</li>
           </ol>
         </nav>
       </div>
       <div class="row d-flex justify-content-center">
-        <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-lg-8 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Edit Movie</h4>
-              <p class="card-description"> Basic movie form  </p>
+              <div class="d-flex align-items-center mb-4">
+                <img src="/<%= thatOneMovie.avatar %>" alt="<%= thatOneMovie.name %>" style="width: 80px; height: 120px; object-fit: cover; border-radius: 8px;" class="mr-3">
+                <div>
+                  <h4 class="card-title mb-1"><i class="mdi mdi-pencil mr-2"></i>Editing: <%= thatOneMovie.name %></h4>
+                  <p class="card-description mb-0">Update movie information below</p>
+                </div>
+              </div>
               <form class="forms-sample" method="post" action="/admin/edit-movie/<%= thatOneMovie.id %>" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="name">Movie Name</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="movie name" value="<%= thatOneMovie.name %>">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name"><i class="mdi mdi-movie mr-1"></i> Movie Name</label>
+                      <input type="text" class="form-control text-light" name="name" id="name" placeholder="Enter movie name" value="<%= thatOneMovie.name %>" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="genre"><i class="mdi mdi-tag mr-1"></i> Genre</label>
+                      <select name="genre" id="genre" class="form-control text-light" required>
+                        <option value="">Select Genre</option>
+                        <option <%= thatOneMovie.genre == 'Action' ? 'selected' : '' %> value="Action">Action</option>
+                        <option <%= thatOneMovie.genre == 'Adventure' ? 'selected' : '' %> value="Adventure">Adventure</option>
+                        <option <%= thatOneMovie.genre == 'Comedy' ? 'selected' : '' %> value="Comedy">Comedy</option>
+                        <option <%= thatOneMovie.genre == 'Drama' ? 'selected' : '' %> value="Drama">Drama</option>
+                        <option <%= thatOneMovie.genre == 'Horror' ? 'selected' : '' %> value="Horror">Horror</option>
+                        <option <%= thatOneMovie.genre == 'Thriller' ? 'selected' : '' %> value="Thriller">Thriller</option>
+                        <option <%= thatOneMovie.genre == 'Sci-Fi' ? 'selected' : '' %> value="Sci-Fi">Sci-Fi</option>
+                        <option <%= thatOneMovie.genre == 'Fantasy' ? 'selected' : '' %> value="Fantasy">Fantasy</option>
+                        <option <%= thatOneMovie.genre == 'Romance' ? 'selected' : '' %> value="Romance">Romance</option>
+                        <option <%= thatOneMovie.genre == 'Mystery' ? 'selected' : '' %> value="Mystery">Mystery</option>
+                        <option <%= thatOneMovie.genre == 'Crime' ? 'selected' : '' %> value="Crime">Crime</option>
+                        <option <%= thatOneMovie.genre == 'Animation' ? 'selected' : '' %> value="Animation">Animation</option>
+                        <option <%= thatOneMovie.genre == 'Documentary' ? 'selected' : '' %> value="Documentary">Documentary</option>
+                        <option <%= thatOneMovie.genre == 'Biography' ? 'selected' : '' %> value="Biography">Biography</option>
+                        <option <%= thatOneMovie.genre == 'Historical' ? 'selected' : '' %> value="Historical">Historical</option>
+                        <option <%= thatOneMovie.genre == 'War' ? 'selected' : '' %> value="War">War</option>
+                        <option <%= thatOneMovie.genre == 'Musical' ? 'selected' : '' %> value="Musical">Musical</option>
+                        <option <%= thatOneMovie.genre == 'Sports' ? 'selected' : '' %> value="Sports">Sports</option>
+                        <option <%= thatOneMovie.genre == 'Family' ? 'selected' : '' %> value="Family">Family</option>
+                        <option <%= thatOneMovie.genre == 'Western' ? 'selected' : '' %> value="Western">Western</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="date"><i class="mdi mdi-calendar mr-1"></i> Release Date</label>
+                      <input type="date" class="form-control text-light" id="date" name="date" value="<%= thatOneMovie.date %>" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ratings"><i class="mdi mdi-star mr-1"></i> Rating</label>
+                      <select name="ratings" class="form-control text-light" id="ratings" required>
+                        <option value="">Select Rating</option>
+                        <option <%= thatOneMovie.ratings == '1' ? 'selected' : '' %> value="1">⭐ 1 Star</option>
+                        <option <%= thatOneMovie.ratings == '2' ? 'selected' : '' %> value="2">⭐⭐ 2 Stars</option>
+                        <option <%= thatOneMovie.ratings == '3' ? 'selected' : '' %> value="3">⭐⭐⭐ 3 Stars</option>
+                        <option <%= thatOneMovie.ratings == '4' ? 'selected' : '' %> value="4">⭐⭐⭐⭐ 4 Stars</option>
+                        <option <%= thatOneMovie.ratings == '5' ? 'selected' : '' %> value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="genre">Genre</label>
-                  <select name="genre" id="genre" class="form-control">
-                    <option value="">Select Genre</option>
-                    <option <%= thatOneMovie.genre == 'Action' ? 'selected' : '' %> value="Action">Action</option>
-                    <option <%= thatOneMovie.genre == 'Adventure' ? 'selected' : '' %> value="Adventure">Adventure</option>
-                    <option <%= thatOneMovie.genre == 'Comedy' ? 'selected' : '' %> value="Comedy">Comedy</option>
-                    <option <%= thatOneMovie.genre == 'Drama' ? 'selected' : '' %> value="Drama">Drama</option>
-                    <option <%= thatOneMovie.genre == 'Horror' ? 'selected' : '' %> value="Horror">Horror</option>
-                    <option <%= thatOneMovie.genre == 'Thriller' ? 'selected' : '' %> value="Thriller">Thriller</option>
-                    <option <%= thatOneMovie.genre == "Sci-Fi" ? 'selected' : '' %> value="Sci-Fi">Sci-Fi (Science Fiction)</option>
-                    <option <%= thatOneMovie.genre == 'Fantasy' ? 'selected' : '' %> value="Fantasy">Fantasy</option>
-                    <option <%= thatOneMovie.genre == 'Romance' ? 'selected' : '' %> value="Romance">Romance</option>
-                    <option <%= thatOneMovie.genre == 'Mystery' ? 'selected' : '' %> value="Mystery">Mystery</option>
-                    <option <%= thatOneMovie.genre == 'Crime' ? 'selected' : '' %> value="Crime">Crime</option>
-                    <option <%= thatOneMovie.genre == 'Animation' ? 'selected' : '' %> value="Animation">Animation</option>
-                    <option <%= thatOneMovie.genre == 'Documentary' ? 'selected' : '' %> value="Documentary">Documentary</option>
-                    <option <%= thatOneMovie.genre == 'Biography / Biopic' ? 'selected' : '' %> value="Biography / Biopic">Biography / Biopic</option>
-                    <option <%= thatOneMovie.genre == 'Historical' ? 'selected' : '' %> value="Historical">Historical</option>
-                    <option <%= thatOneMovie.genre == 'War' ? 'selected' : '' %> value="War">War</option>
-                    <option <%= thatOneMovie.genre == 'Musical' ? 'selected' : '' %> value="Musical">Musical</option>
-                    <option <%= thatOneMovie.genre == 'Sports' ? 'selected' : '' %> value="Sports">Sports</option>
-                    <option <%= thatOneMovie.genre == 'Family' ? 'selected' : '' %> value="Family">Family</option>
-                    <option <%= thatOneMovie.genre == 'Western' ? 'selected' : '' %> value="Western">Western</option>
-                  </select>
+                  <label for="avatar"><i class="mdi mdi-image mr-1"></i> Movie Poster</label>
+                  <input type="file" class="form-control file-input text-light" name="avatar" id="avatar" accept="image/*">
+                  <small class="text-muted">Leave empty to keep current poster</small>
                 </div>
                 <div class="form-group">
-                  <label for="date">Release Date</label>
-                  <input type="date" class="form-control" id="date" name="date" placeholder="Release Date" value="<%= thatOneMovie.date %>">
+                  <label for="description"><i class="mdi mdi-text mr-1"></i> Description</label>
+                  <textarea class="form-control text-light" name="description" id="description" rows="5" placeholder="Enter movie description..." required><%= thatOneMovie.description %></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="avatar">Image</label>
-                    <input type="file" class="form-control file-input" name="avatar" id="avatar">
-                    <img src="/<%= thatOneMovie.avatar %>" width="100" class="mt-2" alt="">
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-warning btn-lg mr-2">
+                    <i class="mdi mdi-content-save mr-1"></i> Update Movie
+                  </button>
+                  <a href="/admin" class="btn btn-dark btn-lg">
+                    <i class="mdi mdi-close mr-1"></i> Cancel
+                  </a>
                 </div>
-                <div class="form-group">
-                  <label for="ratings">Ratings</label>
-                  <select name="ratings" class="form-control" id="ratings">
-                    <option value="">Select Ratings</option>
-                    <option <%= thatOneMovie.ratings == '1' ? 'selected' : '' %> value="1">1</option>
-                    <option <%= thatOneMovie.ratings == '2' ? 'selected' : '' %> value="2">2</option>
-                    <option <%= thatOneMovie.ratings == '3' ? 'selected' : '' %> value="3">3</option>
-                    <option <%= thatOneMovie.ratings == '4' ? 'selected' : '' %> value="4">4</option>
-                    <option <%= thatOneMovie.ratings == '5' ? 'selected' : '' %> value="5">5</option>
-                  </select>
-
-                </div>
-                <div class="form-group">
-                  <label for="description">Description</label>
-                  <textarea type="text" class="form-control"  name="description" id="description" rows="10"><%= thatOneMovie.description %></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button type="button" class="btn btn-dark">Cancel</button>
               </form>
             </div>
           </div>

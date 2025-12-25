@@ -3,79 +3,95 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
-        <h3 class="page-title"> Add Movie </h3>
+        <h3 class="page-title"> <i class="mdi mdi-movie-plus text-success mr-2"></i> Add Movie </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page">Add Movie</li>
           </ol>
         </nav>
       </div>
       <div class="row d-flex justify-content-center">
-        <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-lg-8 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Add Movie</h4>
-              <p class="card-description"> Basic movie form </p>
+              <h4 class="card-title"><i class="mdi mdi-filmstrip mr-2"></i>Movie Details</h4>
+              <p class="card-description">Fill in the movie information below</p>
               <form class="forms-sample" method="post" action="/admin/add-movie" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="name">Movie Name</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="movie name">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name"><i class="mdi mdi-movie mr-1"></i> Movie Name</label>
+                      <input type="text" class="form-control text-light" name="name" id="name" placeholder="Enter movie name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="genre"><i class="mdi mdi-tag mr-1"></i> Genre</label>
+                      <select name="genre" id="genre" class="form-control text-light" required>
+                        <option value="">Select Genre</option>
+                        <option value="Action">Action</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Crime">Crime</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Documentary">Documentary</option>
+                        <option value="Biography">Biography</option>
+                        <option value="Historical">Historical</option>
+                        <option value="War">War</option>
+                        <option value="Musical">Musical</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Family">Family</option>
+                        <option value="Western">Western</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="date"><i class="mdi mdi-calendar mr-1"></i> Release Date</label>
+                      <input type="date" class="form-control text-light" id="date" name="date" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ratings"><i class="mdi mdi-star mr-1"></i> Rating</label>
+                      <select name="ratings" class="form-control text-light" id="ratings" required>
+                        <option value="">Select Rating</option>
+                        <option value="1">⭐ 1 Star</option>
+                        <option value="2">⭐⭐ 2 Stars</option>
+                        <option value="3">⭐⭐⭐ 3 Stars</option>
+                        <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="genre">Genre</label>
-                  <select name="genre" id="genre" class="form-control">
-                    <option value="">Select Genre</option>
-                    <option value="Action">Action</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="Comedy">Comedy</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="Sci-Fi (Science Fiction)">Sci-Fi (Science Fiction)</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Mystery">Mystery</option>
-                    <option value="Crime">Crime</option>
-                    <option value="Animation">Animation</option>
-                    <option value="Documentary">Documentary</option>
-                    <option value="Biography / Biopic">Biography / Biopic</option>
-                    <option value="Historical">Historical</option>
-                    <option value="War">War</option>
-                    <option value="Musical">Musical</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Family">Family</option>
-                    <option value="Western">Western</option>
-                  </select>
+                  <label for="avatar"><i class="mdi mdi-image mr-1"></i> Movie Poster</label>
+                  <input type="file" class="form-control file-input text-light" name="avatar" id="avatar" accept="image/*" required>
+                  <small class="text-muted">Recommended size: 300x450 pixels</small>
                 </div>
                 <div class="form-group">
-                  <label for="date">Release Date</label>
-                  <input type="date" class="form-control" id="date" name="date" placeholder="Release Date">
+                  <label for="description"><i class="mdi mdi-text mr-1"></i> Description</label>
+                  <textarea class="form-control text-light" name="description" id="description" rows="5" placeholder="Enter movie description..." required></textarea>
                 </div>
-                <div class="form-group">
-                  <label for="avatar">Image</label>
-                  <input type="file" class="form-control file-input" name="avatar" id="avatar">
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-success btn-lg mr-2">
+                    <i class="mdi mdi-content-save mr-1"></i> Save Movie
+                  </button>
+                  <a href="/admin" class="btn btn-dark btn-lg">
+                    <i class="mdi mdi-close mr-1"></i> Cancel
+                  </a>
                 </div>
-
-
-                <div class="form-group">
-                  <label for="ratings">Ratings</label>
-                  <select name="ratings" class="form-control" id="ratings">
-                    <option value="">Select Ratings</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-
-                </div>
-                <div class="form-group">
-                  <label for="description">Description</label>
-                  <textarea type="text" class="form-control" name="description" id="description" rows="10"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button type="button" class="btn btn-dark">Cancel</button>
               </form>
             </div>
           </div>
